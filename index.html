@@ -46,6 +46,7 @@
     .question {
       font-size: 22pt;
       margin: 20px 0px;
+      text-align: left;
     }
     .options button {
       text-align: left;
@@ -100,7 +101,7 @@
       background-color: #21e65c;
       width: 0%;
       height: 100%;
-      border-radius: 25px;
+      border-radius: 10px;
     }
     @media(max-width: 1000px){
       .vida{
@@ -214,7 +215,7 @@
       pergunta.opcoes.forEach(opcao => {
         const botao = document.createElement('button');
         botao.textContent = opcao;
-        botao.onclick = () => verificarResposta(opcao);
+        botao.onclick = function () { verificarResposta(this , opcao); };
         opcoesEl.appendChild(botao);
       });
       iniciarTimer();
@@ -224,7 +225,7 @@
 
     finalizar_jogo = false;
     let bloqueio = true
-    function verificarResposta(resposta) {
+    function verificarResposta(botao , resposta) {
       if(bloqueio == true){
         clearInterval(intervalo);
         const correta = perguntas[perguntaAtual].correta;
@@ -232,6 +233,7 @@
           feedbackEl.textContent = '✅ Correto!';
           feedbackEl.style.color = 'green';
           somCorreto.play();
+          botao.style.backgroundColor = "green";
           pontuacao++;
           pontuacaoEl.textContent = pontuacao;
           const total_de_perguntas = 15;
@@ -242,6 +244,7 @@
           feedbackEl.textContent = '❌ Errado!';
           feedbackEl.style.color = 'red';
           somErro.play();
+          botao.style.backgroundColor = "red";
           vidas.removeChild(vidas.lastElementChild);
           if(vidas.children.length == 0){game_over();finalizar_jogo = true;}
         }
@@ -280,6 +283,7 @@
 
     function vitoria(){
       perguntaEl.textContent = 'Parabéns você venceu o desafio matemático!';
+      perguntaEl.style.textAlign = 'center';
       opcoesEl.innerHTML = '';
       visualEl.innerHTML = '';
       feedbackEl.innerHTML = '';
@@ -292,6 +296,7 @@
 
     function game_over(){
       perguntaEl.textContent = 'Game Over!';
+      perguntaEl.style.textAlign = 'center';
       opcoesEl.innerHTML = '';
       visualEl.innerHTML = '';
       feedbackEl.innerHTML = '';

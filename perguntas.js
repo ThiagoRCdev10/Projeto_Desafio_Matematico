@@ -46,7 +46,13 @@ const perguntas_nivel_1 = [
           'd) {a, b, c, d}'
         ],
         correta: 'b) {b, d}',
-        svg: ''
+        svg: `    
+         <svg width="500" height="300" style="border: 2px solid gray;">
+        <circle cx="250" cy="150" r="500" fill="skyblue" stroke="black" stroke-width="2" />
+        <circle cx="300" cy="200" r="100" fill="white" stroke="black" stroke-width="1" />
+        <text x="100" y="80" fill="black" font-size="60px" font-family="Arial" text-anchor="middle">U</text>
+        <text x="300" y="220" fill="black" font-size="60px" font-family="Arial" text-anchor="middle">A</text>
+        </svg>`
       },
 
       {
@@ -96,7 +102,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "Qual das propriedades a seguir **não é** necessária para que uma relação seja de equivalência?",
+    enunciado: "Qual das propriedades a seguir não é necessária para que uma relação seja de equivalência?",
     opcoes: [
       'a) Reflexiva',
       'b) Simétrica',
@@ -121,7 +127,7 @@ const perguntas_nivel_1 = [
 
     //TEMA:  Funções (função injetora, sobrejetora, bijetora, composta, inversa).
     {
-    enunciado: "Uma função é dita **injetora** quando:",
+    enunciado: "Uma função é dita injetora quando:",
     opcoes: [
       'a) Cada elemento do contradomínio é imagem de pelo menos dois elementos do domínio',
       'b) Cada elemento do domínio tem mais de uma imagem',
@@ -132,7 +138,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "Uma função é dita **sobrejetora** quando:",
+    enunciado: "Uma função é dita sobrejetora quando:",
     opcoes: [
       'a) Cada elemento do domínio é imagem de algum elemento do contradomínio',
       'b) Todo elemento do contradomínio é atingido por algum elemento do domínio',
@@ -143,7 +149,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "Uma função é **bijetora** quando ela é:",
+    enunciado: "Uma função é bijetora quando ela é:",
     opcoes: [
       'a) Apenas injetora',
       'b) Apenas sobrejetora',
@@ -154,7 +160,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "A **função composta** f ∘ g é definida como:",
+    enunciado: "A função composta f ∘ g é definida como:",
     opcoes: [
       'a) f(g(x))',
       'b) f(x) + g(x)',
@@ -165,7 +171,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "A **função inversa** de f, denotada por f⁻¹, satisfaz:",
+    enunciado: "A função inversa de f, denotada por f⁻¹, satisfaz:",
     opcoes: [
       'a) f(f⁻¹(x)) = x e f⁻¹(f(x)) = x',
       'b) f(f⁻¹(x)) = 0',
@@ -179,7 +185,7 @@ const perguntas_nivel_1 = [
     //TEMA:  Sequências numéricas (aritméticas e geométricas). 
 
     {
-    enunciado: "Em uma **progressão aritmética (PA)**, cada termo é obtido:",
+    enunciado: "Em uma progressão aritmética (PA), cada termo é obtido:",
     opcoes: [
       'a) Somando sempre o mesmo valor ao termo anterior',
       'b) Multiplicando por 2 o termo anterior',
@@ -190,7 +196,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "A razão de uma **PA** é:",
+    enunciado: "A razão de uma PA é:",
     opcoes: [
       'a) A soma de dois termos quaisquer',
       'b) A multiplicação dos dois primeiros termos',
@@ -201,7 +207,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "Em uma **progressão geométrica (PG)**, cada termo é obtido:",
+    enunciado: "Em uma progressão geométrica (PG), cada termo é obtido:",
     opcoes: [
       'a) Subtraindo sempre o mesmo número do termo anterior',
       'b) Dividindo sempre pelo mesmo número',
@@ -212,7 +218,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "A razão de uma **PG** é calculada por:",
+    enunciado: "A razão de uma PG é calculada por:",
     opcoes: [
       'a) A diferença entre dois termos consecutivos',
       'b) A soma dos termos anteriores',
@@ -230,7 +236,7 @@ const perguntas_nivel_1 = [
       'c) 18',
       'd) 20'
     ],
-    correta: 'c) 17',
+    correta: 'b) 17',
     svg: ''
   }
     
@@ -333,7 +339,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "Qual das seguintes propriedades é **essencial** para que uma relação seja de equivalência?",
+    enunciado: "Qual das seguintes propriedades é essencial para que uma relação seja de equivalência?",
     opcoes: [
       'a) Antissimetria',
       'b) Assimetria',
@@ -378,7 +384,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "Qual das opções representa corretamente a **inversa** da função f(x) = (x - 3)/2?",
+    enunciado: "Qual das opções representa corretamente a inversa da função f(x) = (x - 3)/2?",
     opcoes: [
       'a) f⁻¹(x) = 2x - 3',
       'b) f⁻¹(x) = (x + 3)/2',
@@ -389,7 +395,7 @@ const perguntas_nivel_1 = [
     svg: ''
   },
   {
-    enunciado: "Qual das alternativas caracteriza uma **função sobrejetora** f: ℝ → ℝ?",
+    enunciado: "Qual das alternativas caracteriza uma função sobrejetora f: ℝ → ℝ?",
     opcoes: [
       'a) Existe y ∈ ℝ tal que não há x ∈ ℝ com f(x) = y',
       'b) Todo y ∈ ℝ é imagem de pelo menos um x ∈ ℝ',
