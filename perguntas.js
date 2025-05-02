@@ -46,13 +46,7 @@ const perguntas_nivel_1 = [
           'd) {a, b, c, d}'
         ],
         correta: 'b) {b, d}',
-        svg: `    
-         <svg width="500" height="300" style="border: 2px solid gray;">
-        <circle cx="250" cy="150" r="500" fill="skyblue" stroke="black" stroke-width="2" />
-        <circle cx="300" cy="200" r="100" fill="white" stroke="black" stroke-width="1" />
-        <text x="100" y="80" fill="black" font-size="60px" font-family="Arial" text-anchor="middle">U</text>
-        <text x="300" y="220" fill="black" font-size="60px" font-family="Arial" text-anchor="middle">A</text>
-        </svg>`
+        svg: ''
       },
 
       {
