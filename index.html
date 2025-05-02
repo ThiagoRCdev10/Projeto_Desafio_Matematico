@@ -38,6 +38,8 @@
       color: #333;
     }
     .timer{
+      margin-top: 20px;
+      margin-bottom: 20px;
       color: red;
       font-weight: bold;
     }
@@ -46,6 +48,7 @@
       margin: 20px 0px;
     }
     .options button {
+      text-align: left;
       display: block;
       width: 100%;
       margin: 10px 0px;
@@ -60,7 +63,7 @@
     }
     .options button:hover {
       transform: scale(1.05);
-      background-color: orangered;
+      background-color: #4f9fee;;
     }
     .feedback {
       margin-top: 15px;
@@ -79,11 +82,25 @@
       border-radius: 100%;
       box-shadow: 1px 1px 1px 1px;
     }
-    .progresso{
+    .dadosDeProgresso{
       border: 1px solid rgb(116, 14, 14);
       box-shadow: 1px 1px 1px 1px;
       border-radius: 5px;
       background-color: rgb(222, 243, 255);
+    }
+    #barraProgresso{
+      background-color: #a6c1ee;
+      width: 400px;
+      height: 35px;
+      margin: auto;
+      border: 3px solid #333;
+      border-radius: 10px;
+    }
+    #progresso{
+      background-color: #21e65c;
+      width: 0%;
+      height: 100%;
+      border-radius: 25px;
     }
     @media(max-width: 1000px){
       .vida{
@@ -102,10 +119,13 @@
       <img class="vida" src="imagens/coracao.png" alt="img_coração">
     </div>
     <h1>Desafio Matemático</h1>
-    <div class="progresso">
-      <div class="nivel">Nível: <span id="nivel">Fácil</span></div>
-      <div class="score">Pontuação: <span id="pontuacao">0</span></div>
-      <div class="percentual">Percentual de acertos: <span id="porcentagem">0,00</span>%</div>
+    <div class="dadosDeProgresso">
+      <div class="nivel"><strong>Nível: </strong><span id="nivel">Fácil</span></div>
+      <div class="score"><strong>Pontuação: </strong><span id="pontuacao">0</span> / 15</div>
+      <div class="percentual"><strong>Percentual de acertos: </strong><span id="porcentagem">0,00</span>%</div>
+      <div id="barraProgresso">
+        <div id="progresso"></div>
+      </div>
       <div class="timer">Tempo: <span id="tempo">15</span>s</div>
     </div>
     <div class="question" id="pergunta"></div>
@@ -126,6 +146,7 @@
     let tempoRestante = 15;
     let intervalo;
     let perguntas;
+    const progresso = document.getElementById('progresso');
     const vidas = document.getElementById('vidas');
     const nivelEl = document.getElementById('nivel');
     const pontuacaoEl = document.getElementById('pontuacao');
@@ -153,7 +174,9 @@
           feedbackEl.style.color = "orange";
           somErro.play();
           clearInterval(intervalo);
-          proximaPergunta();
+          vidas.removeChild(vidas.lastElementChild);
+          if(vidas.children.length == 0){game_over();finalizar_jogo = true;}
+          if(finalizar_jogo == false){proximaPergunta();}
         }
       }, 1000);
     }
@@ -213,6 +236,7 @@
           pontuacaoEl.textContent = pontuacao;
           const total_de_perguntas = 15;
           porcentagemEl.textContent = ((pontuacao/total_de_perguntas)*100).toFixed(2).replace('.', ',');
+          progresso.style.width = `${(pontuacao/total_de_perguntas)*100}%`;
           if(pontuacao == total_de_perguntas){vitoria();finalizar_jogo = true;}
         } else {
           feedbackEl.textContent = '❌ Errado!';
