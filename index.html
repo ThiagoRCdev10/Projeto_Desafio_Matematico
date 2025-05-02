@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Desafio Matemático</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    * { 
+      box-sizing: border-box; 
+    }
+    body {
+      margin: 0px;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #c3ecf7, #a6c1ee);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .app {
+      background: #fff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0px 10px 25px rgba(0,0,0,0.1);
+      max-width: 700px;
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      font-size: 36pt;
+      margin-bottom: 25px;
+    }
+    .score, .nivel, .timer, .percentual {
+      font-size: 18pt;
+      margin: 5px 0px;
+      color: #333;
+    }
+    .timer{
+      color: red;
+      font-weight: bold;
+    }
+    .question {
+      font-size: 22pt;
+      margin: 20px 0px;
+    }
+    .options button {
+      display: block;
+      width: 100%;
+      margin: 10px 0px;
+      padding: 12px;
+      font-size: 18pt;
+      border: none;
+      border-radius: 8px;
+      background-color: #1976d2;
+      color: white;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .options button:hover {
+      transform: scale(1.05);
+      background-color: orangered;
+    }
+    .feedback {
+      margin-top: 15px;
+      font-size: 1.1rem;
+      font-weight: bold;
+    }
+    .visual {
+      margin-top: 20px;
+    }
+    .visual svg {
+      width: 100%;
+      height: auto;
+    }
+    .vida{
+      width: 70px;
+      border-radius: 100%;
+      box-shadow: 1px 1px 1px 1px;
+    }
+    .progresso{
+      border: 1px solid rgb(116, 14, 14);
+      box-shadow: 1px 1px 1px 1px;
+      border-radius: 5px;
+      background-color: rgb(222, 243, 255);
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div id="vidas"> 
+      <img class="vida" src="imagens/coracao.png" alt="img_coração">
+      <img class="vida" src="imagens/coracao.png" alt="img_coração">
+      <img class="vida" src="imagens/coracao.png" alt="img_coração">
+      <img class="vida" src="imagens/coracao.png" alt="img_coração">
+      <img class="vida" src="imagens/coracao.png" alt="img_coração">
+    </div>
+    <h1>Desafio Matemático</h1>
+    <div class="progresso">
+      <div class="nivel">Nível: <span id="nivel">Fácil</span></div>
+      <div class="score">Pontuação: <span id="pontuacao">0</span></div>
+      <div class="percentual">Percentual de acertos: <span id="porcentagem">0,00</span>%</div>
+      <div class="timer">Tempo: <span id="tempo">15</span>s</div>
+    </div>
+    <div class="question" id="pergunta"></div>
+    <div class="options" id="opcoes"></div>
+    <div class="feedback" id="feedback"></div>
+    <div class="visual" id="visual"></div>
+  </div>
+
+  <audio id="som-correto" src="musicas/som_de_acerto.mp3"></audio>
+  <audio id="som-erro" src="musicas/som_de_erro.mp3"></audio>
+
+  <script src="perguntas.js"></script>
+
+  <script>
+    
+    let pontuacao = 0;
+    let perguntaAtual = 0;
+    let tempoRestante = 15;
+    let intervalo;
+    let perguntas;
+    const vidas = document.getElementById('vidas');
+    const nivelEl = document.getElementById('nivel');
+    const pontuacaoEl = document.getElementById('pontuacao');
+    const porcentagemEl = document.getElementById('porcentagem')
+    const tempoEl = document.getElementById('tempo');
+    const linhaTempoEl = document.querySelector('.timer');
+    const perguntaEl = document.getElementById('pergunta');
+    const opcoesEl = document.getElementById('opcoes');
+    const feedbackEl = document.getElementById('feedback');
+    const visualEl = document.getElementById('visual');
+    const somCorreto = document.getElementById('som-correto');
+    const somErro = document.getElementById('som-erro');
+
+
+    function iniciarTimer() {
+      clearInterval(intervalo);
+      tempoRestante = 30;
+      tempoEl.textContent = tempoRestante;
+      intervalo = setInterval(() => {
+        tempoRestante--;
+        tempoEl.textContent = tempoRestante;
+        if (tempoRestante == 0) {
+          
+          feedbackEl.textContent = "⏰ Tempo esgotado!";
+          feedbackEl.style.color = "orange";
+          somErro.play();
+          clearInterval(intervalo);
+          proximaPergunta();
+        }
+      }, 1000);
+    }
+
+
+
+
+    let executar_N1 = true;
+    let executar_N2 = true;
+    let executar_N3 = true;
+
+    function carregarPergunta() {
+      feedbackEl.textContent = '';
+      visualEl.innerHTML = '';
+       
+      if(nivel == 1 && executar_N1 == true){
+        perguntas = perguntas_nivel_1;
+        perguntaAtual = 0;
+        executar_N1 = false;
+      }
+      else if(nivel == 2 && executar_N2 == true){
+        perguntas = perguntas_nivel_2;
+        perguntaAtual = 0;
+        executar_N2 = false;
+      }
+      else if(nivel == 3 && executar_N3 == true){
+        perguntas = perguntas_nivel_3;
+        perguntaAtual = 0;
+        executar_N3 = false;
+      }
+      const pergunta = perguntas[perguntaAtual];
+      perguntaEl.textContent = pergunta.enunciado;
+      visualEl.innerHTML = pergunta.svg;
+      opcoesEl.innerHTML = '';
+      pergunta.opcoes.forEach(opcao => {
+        const botao = document.createElement('button');
+        botao.textContent = opcao;
+        botao.onclick = () => verificarResposta(opcao);
+        opcoesEl.appendChild(botao);
+      });
+      iniciarTimer();
+    }
+
+
+
+    finalizar_jogo = false;
+    let bloqueio = true
+    function verificarResposta(resposta) {
+      if(bloqueio == true){
+        clearInterval(intervalo);
+        const correta = perguntas[perguntaAtual].correta;
+        if (resposta === correta) {
+          feedbackEl.textContent = '✅ Correto!';
+          feedbackEl.style.color = 'green';
+          somCorreto.play();
+          pontuacao++;
+          pontuacaoEl.textContent = pontuacao;
+          const total_de_perguntas = 15;
+          porcentagemEl.textContent = ((pontuacao/total_de_perguntas)*100).toFixed(2).replace('.', ',');
+          if(pontuacao == total_de_perguntas){vitoria();finalizar_jogo = true;}
+        } else {
+          feedbackEl.textContent = '❌ Errado!';
+          feedbackEl.style.color = 'red';
+          somErro.play();
+          vidas.removeChild(vidas.lastElementChild);
+          if(vidas.children.length == 0){game_over();finalizar_jogo = true;}
+        }
+        if(finalizar_jogo == false){
+          proximaPergunta();
+        }
+        bloqueio = false;
+      }
+    }
+
+
+
+
+    var nivel = 1;
+    function proximaPergunta() {
+      setTimeout(() => {
+        perguntaAtual++;
+        nivel = Math.floor(pontuacao / 5) + 1;
+        if(nivel == 1){
+          nivelEl.textContent = 'Fácil';
+        }
+        else if(nivel == 2){
+          nivelEl.textContent = 'Médio';
+        }
+        else if(nivel == 3){
+          nivelEl.textContent = 'Difícil';
+        }
+        carregarPergunta();
+        bloqueio = true;
+        }
+      , 3200);
+    }
+
+
+
+
+    function vitoria(){
+      perguntaEl.textContent = 'Parabéns você venceu o desafio matemático!';
+      opcoesEl.innerHTML = '';
+      visualEl.innerHTML = '';
+      feedbackEl.innerHTML = '';
+      linhaTempoEl.innerHTML = '';
+      feedbackEl.textContent = '';
+    }
+
+
+
+
+    function game_over(){
+      perguntaEl.textContent = 'Game Over!';
+      opcoesEl.innerHTML = '';
+      visualEl.innerHTML = '';
+      feedbackEl.innerHTML = '';
+      linhaTempoEl.innerHTML = '';
+      feedbackEl.textContent = '';
+    }
+
+
+
+    
+    perguntas_nivel_1.sort(() => Math.random() - 0.5);
+    perguntas_nivel_2.sort(() => Math.random() - 0.5);
+    perguntas_nivel_3.sort(() => Math.random() - 0.5);
+    carregarPergunta();
+
+  </script>
+</body>
+</html>
